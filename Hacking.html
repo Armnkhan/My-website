@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Link</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1f4068, #162447);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+        }
+
+        .prank-btn {
+            background: #e43f5a;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(228, 63, 90, 0.4);
+            transition: transform 0.1s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .prank-btn:active {
+            transform: scale(0.92);
+        }
+
+        /* Freeze / Termux Hacking Screen */
+        #freeze-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000000;
+            z-index: 99999;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .matrix-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-break: break-all;
+            height: 100%;
+        }
+
+        /* Final Kidding Message Screen Style */
+        #kidding-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #111;
+            z-index: 100000;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #kidding-screen h1 {
+            font-size: 3rem;
+            color: #00ff00;
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+            margin-bottom: 10px;
+        }
+
+        #kidding-screen p {
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-content">
+        <!-- Yahan apna naam likhein -->
+        <h1 id="title-text">🔥 [Armaan bhai] Special Link 🔥</h1>
+        <button class="prank-btn" id="triggerBtn">Click to Open</button>
+    </div>
+
+    <!-- Termux Style Freeze Screen -->
+    <div id="freeze-screen">
+        <div class="matrix-text" id="console"></div>
+    </div>
+
+    <!-- Final Sorry Kidding Screen -->
+    <div id="kidding-screen" style="display: none;">
+        <h1>😂 SORRY I AM KIDDING! 😂</h1>
+        <p>Aapka phone bilkul safe hai, bas chhota sa prank tha!</p>
+    </div>
+
+    <script>
+        // Audio tone function (2 seconds khatarnaak alert)
+        function playAlarm() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+
+                oscillator.type = 'sawtooth';
+                oscillator.frequency.setValueAtTime(900, audioCtx.currentTime);
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                oscillator.start();
+                
+                setTimeout(() => {
+                    oscillator.stop();
+                    audioCtx.close();
+                }, 2000);
+            } catch (e) {
+                console.log("Audio not supported");
+            }
+        }
+
+        // Button Click Event
+        document.getElementById('triggerBtn').addEventListener('click', function() {
+            // 1. Play tone
+            playAlarm();
+
+            // 2. Change text to "Don't touch me" warning style
+            const title = document.getElementById('title-text');
+            title.innerHTML = "🚨 DON'T TOUCH ME! 🚨";
+            title.style.color = "#ff4757";
+
+            // 3. After 2 seconds, launch Termux Hacker Freeze Screen
+            setTimeout(() => {
+                const freezeScreen = document.getElementById('freeze-screen');
+                freezeScreen.style.display = 'block';
+
+                // Force Fullscreen for maximum effect
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen().catch(() => {});
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen().catch(() => {});
+                }
+
+                // Termux Style Infinite / Continuous Hacker Code Generation
+                let consoleDiv = document.getElementById('console');
+                
+                let hackerInterval = setInterval(() => {
+                    let randomHex = Math.floor(Math.random() * 0xffffffff).toString(16);
+                    let fakeCommands = [
+                        `pkg install root-exploit -y`,
+                        `executing payload_v4.${Math.floor(Math.random()*99)}... OK`,
+                        `bypass_security --target=android_kernel --override`,
+                        `Stealing DB_USER_CONTACTS [===> ] 48%`,
+                        `Uploading /sdcard/DCIM/Camera/IMG_${Math.floor(Math.random()*8999+1000)}.jpg -> server`,
+                        `root@termux:~# ./inject_malware --force`,
+                        `ACCESS GRANTED: Session ID #0x${randomHex}`,
+                        `Encrypting internal file system... [LOCKED]`
+                    ];
+                    let randomCmd = fakeCommands[Math.floor(Math.random() * fakeCommands.length)];
+                    consoleDiv.innerHTML += `root@android-x:~# ${randomCmd}\n`;
+                    
+                    // Auto scroll down effect inside termux screen
+                    freezeScreen.scrollTop = freezeScreen.scrollHeight;
+                }, 80); // Bahut tezi se code chalega jaise asli termux ho
+
+                // 4. After 3 minutes (180,000 ms), automatically show "Sorry I am kidding" screen
+                setTimeout(() => {
+                    clearInterval(hackerInterval);
+                    freezeScreen.style.display = 'none';
+                    document.getElementById('kidding-screen').style.display = 'flex';
+                }, 180000); // 3 minutes total duration
+
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
