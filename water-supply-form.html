@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHREE WATER SUPPLY DISTRIBUTION ENTERPRISES</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f0f4f8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .header-banner { background: linear-gradient(135deg, #0066eb, #0033aa); color: white; padding: 20px; border-radius: 0 0 15px 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+    .card-header-custom { background-color: #0056b3; color: white; font-weight: bold; font-size: 1.1rem; }
+    .btn-add { background-color: #198754; color: white; }
+    .sub-text { font-size: 0.85rem; color: #dce6ff; }
+  </style>
+</head>
+<body class="pb-5">
+
+  <div class="header-banner text-center mb-4">
+    <h3 class="fw-bold mb-1">SHREE WATER SUPPLY & DISTRIBUTION ENTERPRISES</h3>
+    <div class="d-flex justify-content-between align-items-center mt-3 px-2 sub-text">
+      <div><strong>Report By (भेजने वाला):</strong> <input type="text" id="reporterName" class="form-control form-control-sm d-inline-block w-auto" value="Mr. Rehan khan "></div>
+      <div><strong>Digital Operations Manager:</strong> Armaan Khan</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <form id="dataForm">
+      
+      <!-- 1. DAILY TRIP & EXPENSES -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header card-header-custom">1. DAILY TRIP & EXPENSES (गाड़ी और ट्रिप का हिसाब)</div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-6 col-md-3">
+              <label class="form-label">Total Cans Loaded (लोड केन)</label>
+              <input type="number" class="form-control" name="trip_loaded" placeholder="0">
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="form-label">Total Cans Sales (बिका हुआ केन)</label>
+              <input type="number" class="form-control" name="trip_sales" placeholder="0">
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="form-label">Damage Cans (खराब केन)</label>
+              <input type="number" class="form-control" name="trip_damage" placeholder="0">
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="form-label">Petrol Expenses (पेट्रोल का खर्चा ₹)</label>
+              <input type="number" class="form-control" name="trip_petrol" placeholder="0">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. DAILY CUSTOMER COLLECTION -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header card-header-custom d-flex justify-content-between align-items-center">
+          <span>2. DAILY CUSTOMER COLLECTION (ग्राहक का कलेक्शन)</span>
+          <button type="button" class="btn btn-sm btn-light text-dark fw-bold" onclick="addCustomerRow()">+ Add Customer (नया ग्राहक जोड़े)</button>
+        </div>
+        <div class="card-body" id="customerContainer">
+          <div class="customer-row border p-3 rounded mb-3 bg-light">
+            <div class="row g-2">
+              <div class="col-md-3">
+                <label class="form-label">Customer Name (नाम)</label>
+                <input type="text" class="form-control" name="cust_name[]" required>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Address (पता)</label>
+                <input type="text" class="form-control" name="cust_address[]">
+              </div>
+              <div class="col-md-2">
+                <label class="form-label">Phone No (फोन)</label>
+                <input type="tel" class="form-control" name="cust_phone[]">
+              </div>
+              <div class="col-6 col-md-2">
+                <label class="form-label">Cans Quantity (केन संख्या)</label>
+                <input type="number" class="form-control" name="cust_qty[]">
+              </div>
+              <div class="col-6 col-md-2">
+                <label class="form-label">Payment Status (पेमेंट)</label>
+                <select class="form-select" name="cust_status[]">
+                  <option value="Paid">Paid (दिया)</option>
+                  <option value="Unpaid">Unpaid (बाकी)</option>
+                </select>
+              </div>
+              <div class="col-6 col-md-2 mt-2">
+                <label class="form-label">Advance Paid (एडवांस जमा ₹)</label>
+                <input type="number" class="form-control" name="cust_advance[]" placeholder="0">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. DAILY PRODUCTION & ATTENDANCE -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header card-header-custom">3. DAILY PRODUCTION & EXPENSES (प्रोडक्शन और लाइट बिल)</div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Normal Water Sales (सादा पानी बिका ₹)</label>
+              <input type="number" class="form-control" name="prod_normal" placeholder="0">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Cold Water Sales (ठंडा पानी बिका ₹)</label>
+              <input type="number" class="form-control" name="prod_cold" placeholder="0">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Light Bill Expenses (लाइट बिल खर्चा ₹)</label>
+              <input type="number" class="form-control" name="prod_lightbill" placeholder="0">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. WORKER REGISTER -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header card-header-custom d-flex justify-content-between align-items-center">
+          <span>4. WORKER REGISTER (वर्कर हाजिरी और एडवांस)</span>
+          <button type="button" class="btn btn-sm btn-light text-dark fw-bold" onclick="addWorkerRow()">+ Add Worker (नया वर्कर जोड़े)</button>
+        </div>
+        <div class="card-body" id="workerContainer">
+          <div class="worker-row border p-3 rounded mb-2 bg-light">
+            <div class="row g-2">
+              <div class="col-md-4">
+                <label class="form-label">Worker Name (वर्कर नाम)</label>
+                <input type="text" class="form-control" name="work_name[]">
+              </div>
+              <div class="col-6 col-md-4">
+                <label class="form-label">Attendance (हाजिरी)</label>
+                <select class="form-select" name="work_att[]">
+                  <option value="Present">Present (आया)</option>
+                  <option value="Absent">Absent (नहीं आया)</option>
+                </select>
+              </div>
+              <div class="col-6 col-md-4">
+                <label class="form-label">Advance Taken (एडवांस लिया ₹)</label>
+                <input type="number" class="form-control" name="work_advance[]" placeholder="0">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg w-100 shadow">SUBMIT DATA (डाटा भेजें)</button>
+    </form>
+  </div>
+
+  <script>
+    function addCustomerRow() {
+      const container = document.getElementById('customerContainer');
+      const row = container.children[0].cloneNode(true);
+      row.querySelectorAll('input').forEach(input => input.value = '');
+      container.appendChild(row);
+    }
+
+    function addWorkerRow() {
+      const container = document.getElementById('workerContainer');
+      const row = container.children[0].cloneNode(true);
+      row.querySelectorAll('input').forEach(input => input.value = '');
+      container.appendChild(row);
+    }
+
+    document.getElementById('dataForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = {};
+      
+      formData.forEach((value, key) => {
+        if(key.endsWith('[]')) {
+          if(!data[key]) data[key] = [];
+          data[key].push(value);
+        } else {
+          data[key] = value;
+        }
+      });
+      data['reporter_name'] = document.getElementById('reporterName').value;
+
+      google.script.run.withSuccessHandler(function() {
+        alert('Data Successfully Bhej Diya Gaya Hai!');
+        document.getElementById('dataForm').reset();
+      }).processForm(data);
+    });
+  </script>
+</body>
+</html>
+
+</body>
+</html>
