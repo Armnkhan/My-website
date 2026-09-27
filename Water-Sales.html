@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHREE WATER SUPPLY DISTRIBUTION ENTERPRISES</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f0f4f8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .header-banner { background: linear-gradient(135deg, #0066eb, #0033aa); color: white; padding: 20px; border-radius: 0 0 15px 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+    .card-header-custom { background-color: #0056b3; color: white; font-weight: bold; font-size: 1.1rem; }
+    .sub-text { font-size: 0.85rem; color: #dce6ff; }
+  </style>
+</head>
+<body class="pb-5">
+
+  <div class="header-banner text-center mb-4">
+    <h3 class="fw-bold mb-1">SHREE WATER SUPPLY & DISTRIBUTION ENTERPRISES</h3>
+    <div class="d-flex justify-content-between align-items-center mt-3 px-2 sub-text">
+      <div><strong>Report By (भेजने वाला):</strong> <input type="text" id="reporterName" class="form-control form-control-sm d-inline-block w-auto" value="Mr. Rehan khan"></div>
+      <div><strong>Digital Operations Manager:</strong> Armaan Khan</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <form id="dataForm">
+
+      <!-- 1. DAILY TRIP & EXPENSES -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header card-header-custom">1. DAILY TRIP & EXPENSES (गाड़ी और ट्रिप का हिसाब)</div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-6 col-md-3">
+              <label class="form-label">Total Cans Loaded (लोड केन)</label>
+              <input type="number" class="form-control" id="trip_loaded" placeholder="0">
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="form-label">Total Cans Sales (बिका हुआ केन)</label>
+              <input type="number" class="form-control" id="trip_sales" placeholder="0">
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="form-label">Damage Cans (खराब केन)</label>
+              <input type="number" class="form-control" id="trip_damage" placeholder="0">
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="form-label">Petrol Expenses (पेट्रोल का खर्चा ₹)</label>
+              <input type="number" class="form-control" id="trip_petrol" placeholder="0">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. DAILY CUSTOMER COLLECTION -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header card-header-custom d-flex justify-content-between align-items-center">
+          <span>2. DAILY CUSTOMER COLLECTION (ग्राहक का कलेक्शन)</span>
+          <button type="button" class="btn btn-sm btn-light text-dark fw-bold" onclick="addCustomerRow()">+ Add Customer (नया ग्राहक जोड़े)</button>
+        </div>
+        <div class="card-body" id="customerContainer">
+          <div class="customer-row border p-3 rounded mb-3 bg-light">
+            <div class="row g-2">
+              <div class="col-md-3">
+                <label class="form-label">Customer Name (नाम)</label>
+                <input type="text" class="form-control cust-name">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Address (पता)</label>
+                <input type="text" class="form-control cust-address">
+              </div>
+              <div class="col-md-2">
+                <label class="form-label">Phone No (फोन)</label>
+                <input type="tel" class="form-control cust-phone">
+              </div>
+              <div class="col-6 col-md-2">
+                <label class="form-label">Cans Quantity (केन संख्या)</label>
+                <input type="number" class="form-control cust-qty">
+              </div>
+              <div class="col-6 col-md-2">
+                <label class="form-label">Payment Status (पेमेंट)</label>
+                <select class="form-select cust-status">
+                  <option value="Paid">Paid (दिया)</option>
+                  <option value="Unpaid">Unpaid (बाकी)</option>
+                </select>
+              </div>
+              <div class="col-6 col-md-2 mt-2">
+                <label class="form-label">Advance Paid (एडवांस जमा ₹)</label>
+                <input type="number" class="form-control cust-advance" placeholder="0">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. DAILY PRODUCTION & EXPENSES -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header card-header-custom">3. DAILY PRODUCTION & EXPENSES (प्रोडक्शन और लाइट बिल)</div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Normal Water Sales (सादा पानी बिका ₹)</label>
+              <input type="number" class="form-control" id="prod_normal" placeholder="0">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Cold Water Sales (ठंडा पानी बिका ₹)</label>
+              <input type="number" class="form-control" id="prod_cold" placeholder="0">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Light Bill Expenses (लाइट बिल खर्चा ₹)</label>
+              <input type="number" class="form-control" id="prod_lightbill" placeholder="0">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. WORKER REGISTER -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header card-header-custom d-flex justify-content-between align-items-center">
+          <span>4. WORKER REGISTER (वर्कर हाजिरी और एडवांस)</span>
+          <button type="button" class="btn btn-sm btn-light text-dark fw-bold" onclick="addWorkerRow()">+ Add Worker (नया वर्कर जोड़े)</button>
+        </div>
+        <div class="card-body" id="workerContainer">
+          <div class="worker-row border p-3 rounded mb-2 bg-light">
+            <div class="row g-2">
+              <div class="col-md-4">
+                <label class="form-label">Worker Name (वर्कर नाम)</label>
+                <input type="text" class="form-control work-name">
+              </div>
+              <div class="col-6 col-md-4">
+                <label class="form-label">Attendance (हाजिरी)</label>
+                <select class="form-select work-att">
+                  <option value="Present">Present (आया)</option>
+                  <option value="Absent">Absent (नहीं आया)</option>
+                </select>
+              </div>
+              <div class="col-6 col-md-4">
+                <label class="form-label">Advance Taken (एडवांस लिया ₹)</label>
+                <input type="number" class="form-control work-advance" placeholder="0">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn btn-primary btn-lg w-100 shadow">SUBMIT DATA (डाटा भेजें)</button>
+    </form>
+  </div>
+
+  <script>
+    function addCustomerRow() {
+      const container = document.getElementById('customerContainer');
+      const row = container.children[0].cloneNode(true);
+      row.querySelectorAll('input').forEach(input => input.value = '');
+      container.appendChild(row);
+    }
+
+    function addWorkerRow() {
+      const container = document.getElementById('workerContainer');
+      const row = container.children[0].cloneNode(true);
+      row.querySelectorAll('input').forEach(input => input.value = '');
+      container.appendChild(row);
+    }
+
+    // Form Submission Logic
+    document.getElementById('dataForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.innerText = 'Sending Report... Please wait';
+      submitBtn.disabled = true;
+
+      // Platform Detection (WhatsApp, IMO, Browser)
+      const ua = navigator.userAgent || '';
+      let platform = "Direct Web Browser";
+      if (ua.includes("WhatsApp")) {
+        platform = "WhatsApp App";
+      } else if (ua.includes("IMO") || ua.includes("imo")) {
+        platform = "IMO App";
+      }
+
+      const reporter = document.getElementById('reporterName').value || "Unknown";
+
+      // Build Clean Detailed Text Report
+      let reportMessage = `=== DAILY WORK REPORT ===\n`;
+      reportMessage += `Report By: ${reporter}\n`;
+      reportMessage += `Submitted Via: ${platform}\n`;
+      reportMessage += `Date: ${new Date().toLocaleString()}\n\n`;
+
+      reportMessage += `1. DAILY TRIP & EXPENSES\n`;
+      reportMessage += `- Loaded Cans: ${document.getElementById('trip_loaded').value || 0}\n`;
+      reportMessage += `- Sales Cans: ${document.getElementById('trip_sales').value || 0}\n`;
+      reportMessage += `- Damage Cans: ${document.getElementById('trip_damage').value || 0}\n`;
+      reportMessage += `- Petrol Expenses: ₹${document.getElementById('trip_petrol').value || 0}\n\n`;
+
+      reportMessage += `2. CUSTOMER COLLECTION\n`;
+      const custRows = document.querySelectorAll('.customer-row');
+      custRows.forEach((row, i) => {
+        const name = row.querySelector('.cust-name').value;
+        if(name) {
+          const addr = row.querySelector('.cust-address').value || '-';
+          const phone = row.querySelector('.cust-phone').value || '-';
+          const qty = row.querySelector('.cust-qty').value || '0';
+          const status = row.querySelector('.cust-status').value;
+          const advance = row.querySelector('.cust-advance').value || '0';
+          reportMessage += `#${i+1} Name: ${name} | Phone: ${phone} | Addr: ${addr} | Qty: ${qty} | Status: ${status} | Advance: ₹${advance}\n`;
+        }
+      });
+
+      reportMessage += `\n3. PRODUCTION & EXPENSES\n`;
+      reportMessage += `- Normal Water Sales: ₹${document.getElementById('prod_normal').value || 0}\n`;
+      reportMessage += `- Cold Water Sales: ₹${document.getElementById('prod_cold').value || 0}\n`;
+      reportMessage += `- Light Bill: ₹${document.getElementById('prod_lightbill').value || 0}\n\n`;
+
+      reportMessage += `4. WORKER REGISTER\n`;
+      const workRows = document.querySelectorAll('.worker-row');
+      workRows.forEach((row, i) => {
+        const wName = row.querySelector('.work-name').value;
+        if(wName) {
+          const wAtt = row.querySelector('.work-att').value;
+          const wAdv = row.querySelector('.work-advance').value || '0';
+          reportMessage += `#${i+1} Name: ${wName} | Attendance: ${wAtt} | Advance: ₹${wAdv}\n`;
+        }
+      });
+
+      // Send via FormSubmit API
+      fetch("https://formsubmit.co/ajax/armaankhan07989@gmail.com", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `New Water Supply Report from ${reporter}`,
+          _template: "box",
+          REPORT_DETAILS: reportMessage
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert("Report Successfully Thank You Brother");
+        document.getElementById('dataForm').reset();
+        submitBtn.innerText = 'SUBMIT DATA (डाटा भेजें)';
+        submitBtn.disabled = false;
+      })
+      .catch(error => {
+        alert("Report bhejne me error aaya, kripya dubara try karein.");
+        submitBtn.innerText = 'SUBMIT DATA (डाटा भेजें)';
+        submitBtn.disabled = false;
+      });
+    });
+  </script>
+</body>
+</html>
